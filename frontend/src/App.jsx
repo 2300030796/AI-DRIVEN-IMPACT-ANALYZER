@@ -13,7 +13,7 @@ export default function App() {
       <div className="app-layout">
         <nav className="sidebar">
           <div className="sidebar-brand">
-            <Cpu size={22} color="#6366f1" />
+             <Cpu size={22} color="#6366f1" />
             <span>Impact Analyzer</span>
           </div>
           <ul className="nav-list">

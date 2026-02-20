@@ -37,6 +37,8 @@ public class AnalysisService {
     private static final int MAX_FILE_CONTENT_CHARS = 6000;
     private static final int MAX_HISTORY_SIZE = 50;
 
+    private final ImpactedModuleResolver impactedModuleResolver;
+
     // =============================================================
     // MODE 1: File Upload Analysis
     // =============================================================
@@ -82,6 +84,17 @@ public class AnalysisService {
         }
 
         AiAnalysisResult aiResult = ollamaService.analyze(fileNames, contentBuilder.toString());
+
+
+
+
+
+        List<String> realModules = impactedModuleResolver.resolveFromFileNames(fileNames);
+aiResult.setImpactedModules(realModules);
+
+
+
+
         long elapsed = System.currentTimeMillis() - startTime;
 
         AnalysisReport saved = saveReport(aiResult, fileNames, "FILE_UPLOAD", "file-upload", null, elapsed);
@@ -183,6 +196,13 @@ public class AnalysisService {
 
         long start = System.currentTimeMillis();
         AiAnalysisResult aiResult = ollamaService.analyze(fileNames, contentBuilder.toString());
+
+ 
+ List<String> realModules = impactedModuleResolver.resolveFromFileNames(fileNames);
+aiResult.setImpactedModules(realModules);
+
+
+
         long totalElapsed = elapsedSoFar + (System.currentTimeMillis() - start);
 
         AnalysisReport saved = saveReport(aiResult, fileNames, mode, sourceRef, branch, totalElapsed);

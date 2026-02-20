@@ -1,6 +1,7 @@
 com\impact\analyzer\dto\OllamaRequest$OllamaRequestBuilder.class
 com\impact\analyzer\exception\ResourceNotFoundException.class
 com\impact\analyzer\AnalyzerApplication.class
+com\impact\analyzer\service\ImpactedModuleResolver.class
 com\impact\analyzer\dto\AnalysisResponse$AnalysisResponseBuilder.class
 com\impact\analyzer\config\AppConfig.class
 com\impact\analyzer\util\FileUtils$1.class

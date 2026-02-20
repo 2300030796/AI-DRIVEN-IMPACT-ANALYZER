@@ -63,38 +63,78 @@ public class OllamaService {
     //         %s
     //         """;
 
+
+//2nd commented
+// private static final String PROMPT_TEMPLATE = """
+//         You are a software test impact analyzer.
+
+//         Given the following changed source files, identify:
+//         1. impacted modules
+//         2. risk level (LOW/MEDIUM/HIGH)
+//         3. regression test cases to execute
+//         4. explanation why each test is required
+//         5. confidenceScore (integer 1-100)
+
+//         Return STRICT JSON ONLY — no markdown, no explanation outside JSON:
+
+//         {
+//           "impactedModules": ["module1", "module2"],
+//           "riskLevel": "LOW|MEDIUM|HIGH",
+//           "recommendedTests": ["TestClassName#methodName", "another test"],
+//           "reasoning": "Explanation of the impact analysis",
+//           "confidenceScore": 1
+//         }
+
+//         Rules:
+//         - confidenceScore must be an integer between 1 and 100
+//         - Use 80-95 for HIGH risk with core/auth/db/api contract changes
+//         - Use 55-79 for MEDIUM risk with functional changes/refactors
+//         - Use 25-54 for LOW risk with small changes/new UI only
+
+//         Changed Files:
+//         %s
+
+//         Code:
+//         %s
+//         """;
+
+
+
 private static final String PROMPT_TEMPLATE = """
-        You are a software test impact analyzer.
+You are a software test impact analyzer.
 
-        Given the following changed source files, identify:
-        1. impacted modules
-        2. risk level (LOW/MEDIUM/HIGH)
-        3. regression test cases to execute
-        4. explanation why each test is required
-        5. confidenceScore (integer 1-100)
+Given the following changed source files, identify:
+1. risk level (LOW/MEDIUM/HIGH)
+2. regression test cases to execute
+3. explanation why each test is required
+4. confidenceScore (integer 1-100)
 
-        Return STRICT JSON ONLY — no markdown, no explanation outside JSON:
+Return STRICT JSON ONLY:
 
-        {
-          "impactedModules": ["module1", "module2"],
-          "riskLevel": "LOW|MEDIUM|HIGH",
-          "recommendedTests": ["TestClassName#methodName", "another test"],
-          "reasoning": "Explanation of the impact analysis",
-          "confidenceScore": 1
-        }
+{
+  "riskLevel": "LOW|MEDIUM|HIGH",
+  "recommendedTests": ["TestClass#method", "AnotherTest#case"],
+  "reasoning": "text",
+  "confidenceScore": 1
+}
 
-        Rules:
-        - confidenceScore must be an integer between 1 and 100
-        - Use 80-95 for HIGH risk with core/auth/db/api contract changes
-        - Use 55-79 for MEDIUM risk with functional changes/refactors
-        - Use 25-54 for LOW risk with small changes/new UI only
+Rules:
+- confidenceScore must be an integer between 1 and 100
 
-        Changed Files:
-        %s
+Changed Files:
+%s
 
-        Code:
-        %s
-        """;
+Code:
+%s
+""";
+
+
+
+
+
+
+
+
 
 
     /**

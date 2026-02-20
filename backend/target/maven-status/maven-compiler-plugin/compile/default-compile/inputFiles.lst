@@ -13,6 +13,7 @@ C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\back
 C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\AnalyzerApplication.java
 C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\dto\OllamaRequest.java
 C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\service\OllamaService.java
+C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\service\ImpactedModuleResolver.java
 C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\repository\AnalysisReportRepository.java
 C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\dto\AnalysisResponse.java
 C:\Users\IT\Desktop\AI-Driven-Impact-Analyzer (2)\AI-Driven-Impact-Analyzer\backend\src\main\java\com\impact\analyzer\dto\AiAnalysisResult.java
