@@ -80,7 +80,7 @@ export default function UploadPage() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">Regression Impact Analyzer</h1>
+        <h1 className="page-title">AI-Driven Impact Analyzer</h1>
         <p className="page-subtitle">
           Predict impacted modules and recommended regression tests using AI
         </p>
