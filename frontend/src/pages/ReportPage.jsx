@@ -250,6 +250,11 @@ import { getReport } from '../services/api.js'
 import RiskBadge from '../components/RiskBadge.jsx'
 import ConfidenceBar from '../components/ConfidenceBar.jsx'
 import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from 'recharts'
+
+
+import StageDonut3D from '../components/StageDonut3D.jsx'
+
+
 import {
   ArrowLeft, FileCode, Layers, FlaskConical, BrainCircuit,
   Clock, GitBranch, Link, AlertTriangle
@@ -261,6 +266,9 @@ export default function ReportPage() {
   const [report, setReport] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+
+  const [animatedScore, setAnimatedScore] = useState(0)
 
   useEffect(() => {
     async function fetchReport() {
@@ -275,6 +283,36 @@ export default function ReportPage() {
     }
     fetchReport()
   }, [id])
+
+
+
+  useEffect(() => {
+  if (!report) return
+
+  const target = Math.max(0, Math.min(100, Number(report.confidenceScore || 0)))
+  let start = 0
+
+  const duration = 1200
+  const startTime = performance.now()
+
+  function animate(now) {
+    const progress = Math.min((now - startTime) / duration, 1)
+    const eased = 1 - Math.pow(1 - progress, 3) // smooth ease-out
+    const value = Math.round(eased * target)
+
+    setAnimatedScore(value)
+
+    if (progress < 1) {
+      requestAnimationFrame(animate)
+    }
+  }
+
+  requestAnimationFrame(animate)
+}, [report])
+
+
+
+
 
   if (loading) {
     return (
@@ -296,14 +334,51 @@ export default function ReportPage() {
     )
   }
 
-  if (!report) return null
+  // if (!report) return null
+
+
+  // const confidenceDonut = [
+  //   { name: 'Confidence', value: Number(report.confidenceScore || 0) },
+  //   { name: 'Remaining', value: Math.max(0, 100 - Number(report.confidenceScore || 0)) },
+  // ]
+
+// const pct = animatedScore
+
+// const donutData = [
+//   { label: 'Confidence', value: pct, color: '#3c15ba' },
+//   { label: 'Remaining', value: 100 - pct, color: '#d1d5db' },
+// ]
+
+
+const pct = animatedScore
+
+const mainColor =
+  report.riskLevel?.toUpperCase() === 'HIGH' ? '#ef4444' :
+  report.riskLevel?.toUpperCase() === 'MEDIUM' ? '#f59e0b' :
+  '#10b981'
+
+const donutData = [
+  { label: 'Confidence', value: pct, color: mainColor },
+  { label: 'Remaining', value: 100 - pct, color: '#8fd0de' },
+]
+
+
+
+
+
+
+
 
   const confidenceDonut = [
-    { name: 'Confidence', value: Number(report.confidenceScore || 0) },
-    { name: 'Remaining', value: Math.max(0, 100 - Number(report.confidenceScore || 0)) },
-  ]
+  { name: 'Confidence', value: animatedScore },
+  { name: 'Remaining', value: 100 - animatedScore },
+]
 
-  const pct = Math.max(0, Math.min(100, Number(report.confidenceScore || 0)))
+  // const pct = Math.max(0, Math.min(100, Number(report.confidenceScore || 0)))
+  
+  // const pct = animatedScore
+  
+  
   const risk = (report.riskLevel || '').toUpperCase()
   const ringColor =
     risk === 'HIGH' ? 'var(--color-danger)' :
@@ -370,6 +445,7 @@ export default function ReportPage() {
             color: 'var(--color-text)'
           }}>
             {pct}%
+           
           </span>
         </div>
 
@@ -387,9 +463,9 @@ export default function ReportPage() {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
+            {/* <ResponsiveContainer width="100%" height="100%">
+              <PieChart> */}
+                {/* <Pie
                   data={confidenceDonut}
                   dataKey="value"
                   nameKey="name"
@@ -400,10 +476,40 @@ export default function ReportPage() {
                 >
                   <Cell fill={ringColor} />
                   <Cell fill={remainderColor} />
-                </Pie>
+                </Pie> */}
+
+                {/* <Pie
+  data={confidenceDonut}
+  dataKey="value"
+  nameKey="name"
+  innerRadius={44}
+  outerRadius={56}
+  startAngle={90}
+  endAngle={-270}
+  isAnimationActive={false}
+>
+</Pie>
+
                 <Tooltip />
               </PieChart>
-            </ResponsiveContainer>
+            </ResponsiveContainer> */}
+
+
+                  <StageDonut3D
+  data={donutData}
+  size={190}
+  thickness={44}
+  depth={14}
+  gapDeg={4}
+  explode={6}
+  rotationDeg={-70}
+  centerLabel={`${pct}%`}
+  animate
+/>
+
+
+
+
           </div>
 
           <div>
