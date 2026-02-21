@@ -23,6 +23,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+
+
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -288,6 +292,15 @@ aiResult.setImpactedModules(realModules);
         return "Core";
     }
 
+
+
+
+
+
+
+
+
+
     private ReportSummaryDto mapToSummary(AnalysisReport report) {
         List<String> files = parseJsonList(report.getFileNames());
         List<String> modules = parseJsonList(report.getImpactedModules());
@@ -315,4 +328,14 @@ aiResult.setImpactedModules(realModules);
             return Collections.singletonList(json);
         }
     }
+    
+
 }
+
+
+
+
+
+
+
+
