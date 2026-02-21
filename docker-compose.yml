@@ -1,0 +1,32 @@
+services:
+  mysqldb:
+    image: mysql:8
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: impact_analyzer
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    image: 2300030796/ai-dockeraws-backend:latest
+    container_name: springboot
+    ports:
+      - "8888:8080"
+    depends_on:
+      - mysqldb
+    restart: on-failure
+
+  frontend:
+    image: 2300030796/ai-dockeraws-frontend:latest
+    container_name: react
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: on-failure
+
+volumes:
+  mysql_data:
